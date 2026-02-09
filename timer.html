@@ -1,0 +1,137 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+        <link rel="stylesheet" href="timer-Dateien/css2_002.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com/">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+        <link href="timer-Dateien/css2.css" rel="stylesheet">
+    <style>
+        #container {
+            background: grey;
+            text-align: center;
+            border: 3px solid grey;
+            border-radius: 15px;
+            padding-top: 3%
+        }
+
+        #counter {
+            background: white;
+            margin-top: 3%;
+            margin-right: 10%;
+            margin-left: 10%;
+            margin-bottom: 2%;
+            font-size:15vw;
+            border-radius: 15px;
+        }
+
+        .roboto-bold {
+            font-family: "Roboto", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .buttons {
+            cursor: pointer;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .buttons:hover {
+            transform: scale(1.1);
+        }
+
+        .buttons:active {
+            opacity: 0.6;
+        }
+
+        .timeoption {
+            background-color: #343a40;
+            border-radius: 50%;
+            margin-right: .5rem;
+            margin-left: .5rem;
+            padding: .5rem;
+            color: #fff;
+            cursor: pointer;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            font-size: 4vw;
+        }
+
+        .timeoption:hover {
+            transform: scale(1.1);
+        }
+
+        .timeoption:active {
+            opacity: 0.6;
+        }
+    </style><script>
+        var timer;
+        var setTime = 180;
+
+        function startTimer() {
+            var startTime = Date.now();
+            var endTime = startTime + (setTime * 1000); // Umrechnung von Sekunden in Millisekunden
+
+            timer = setInterval(function() {
+                var time = Date.now();
+                var remaining = new Date(Math.ceil(endTime - time));
+                var minutes = remaining.getMinutes();
+                var seconds = remaining.getSeconds();
+                
+                if(seconds < 10) {
+                seconds = "0" + seconds;
+                }
+
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+
+                if (remaining <= 0) {
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            document.getElementById('minutes').textContent = "0";
+            document.getElementById('seconds').textContent = "00";
+        }
+
+        function restartTimer() {
+        stopTimer();
+        startTimer(setTime);
+        }
+
+        function setTimer(duration) {
+        setTime = duration;
+        var startTime = Date.now();
+        var endTime = startTime + (setTime * 1000); // Umrechnung von Sekunden in Millisekunden
+        var time = Date.now();
+        var remaining = new Date(Math.ceil(endTime - time));
+        var minutes = remaining.getMinutes();
+        var seconds = remaining.getSeconds();
+        
+            if(seconds < 10) {
+            seconds = "0" + seconds;
+            }
+
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+    </script></head>
+    
+    
+    <body>
+        <div id="container" class="roboto-bold">
+            <span onclick="setTimer(30)" class="timeoption">30</span>
+            <span onclick="setTimer(60)" class="timeoption">60</span>
+            <span onclick="setTimer(90)" class="timeoption">90</span>
+            <span onclick="setTimer(120)" class="timeoption">120</span>
+            <span onclick="setTimer(180)" class="timeoption">180</span>
+            <div id="counter">
+              <span id="minutes">0</span>:<span id="seconds">00</span>
+            </div>
+            <span onclick="startTimer()" class="material-symbols-rounded buttons" style="font-size:10vh;">play_circle</span>
+            <span onclick="stopTimer()" class="material-symbols-rounded buttons" style="font-size:10vh;">stop_circle</span>
+            <span onclick="restartTimer()" class="material-symbols-rounded buttons" style="font-size:10vh;">replay_circle_filled</span>
+          </div>
+    
+
+</body></html>
